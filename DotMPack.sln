@@ -1,0 +1,57 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotMPack", "DotMPack\DotMPack.csproj", "{80B67925-AC57-46B2-BC37-1EBC0B5C521B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{872176B1-8480-4F8C-86E1-B3B56F62C99C}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
+		Directory.Packages.props = Directory.Packages.props
+		DotMPack.ruleset = DotMPack.ruleset
+		DotMPack.sln.licenseheader = DotMPack.sln.licenseheader
+		global.json = global.json
+		LICENSE.txt = LICENSE.txt
+		nuget.config = nuget.config
+		README.md = README.md
+		..\..\..\..\..\..\Source\Repos\HigginsSoft.Platform\version.json = ..\..\..\..\..\..\Source\Repos\HigginsSoft.Platform\version.json
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotMPack.Tests", "DotMPack.Tests\DotMPack.Tests.csproj", "{6F1DCA9F-6645-437B-8B83-A279CFC0DA81}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DotMPack.GrpcTests", "DotMPack.GrpcTests\DotMPack.GrpcTests.csproj", "{EAB0281A-F826-40D4-8302-7D77285DA6D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotRpc", "DotRpc\DotRpc.csproj", "{560FF0BB-1AB0-4024-A1EB-87F3D990D93D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{80B67925-AC57-46B2-BC37-1EBC0B5C521B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80B67925-AC57-46B2-BC37-1EBC0B5C521B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80B67925-AC57-46B2-BC37-1EBC0B5C521B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80B67925-AC57-46B2-BC37-1EBC0B5C521B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6F1DCA9F-6645-437B-8B83-A279CFC0DA81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6F1DCA9F-6645-437B-8B83-A279CFC0DA81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6F1DCA9F-6645-437B-8B83-A279CFC0DA81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6F1DCA9F-6645-437B-8B83-A279CFC0DA81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EAB0281A-F826-40D4-8302-7D77285DA6D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EAB0281A-F826-40D4-8302-7D77285DA6D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EAB0281A-F826-40D4-8302-7D77285DA6D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EAB0281A-F826-40D4-8302-7D77285DA6D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{560FF0BB-1AB0-4024-A1EB-87F3D990D93D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{560FF0BB-1AB0-4024-A1EB-87F3D990D93D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{560FF0BB-1AB0-4024-A1EB-87F3D990D93D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{560FF0BB-1AB0-4024-A1EB-87F3D990D93D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B74BDC63-79A9-4321-9B00-CF293DB513CC}
+	EndGlobalSection
+EndGlobal

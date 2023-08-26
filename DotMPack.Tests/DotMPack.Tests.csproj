@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<Nullable>enable</Nullable>
+	<RootNamespace>HigginsSoft.DotDotMPackTests</RootNamespace>
+	<AssemblyName>HigginsSoft.DotDotMPackTests</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MSTest.TestFramework"  />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DotMPack\DotMPack.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,113 @@
+﻿extensions: designer.cs generated.cs
+extensions: .cs .cpp .h
+
+#region License
+// LICENSE INFORMATION ////////////////////////////////////////////////////////////////////////
+//                                                                                           //
+//                                          DotMPack                                         //
+//                                                                                           //
+//  DotMPack is lightweight Grpc compatible implementation of the MessagePack binary		 //
+//  serialization format adapted from MPack.												 //
+//  It is a direct mapping to JSON, and the official specification can be found here:        //
+//  https://github.com/msgpack/msgpack/blob/master/spec.md                                   //
+//                                                                                           //
+//  This DotMPack implementation is inspired by the work of ymofen (ymofen@diocp.org):       //
+//  https://github.com/ymofen/SimpleMsgPack.Net                                              //
+//                                                                                           //
+//  This implementation has been completely reworked from the ground up including many       //
+//  bux fixes and an API that remains lightweight compared to the official one,              //
+//  while remaining robust and easy to use.                                                  //
+//                                                                                           //                 
+//  MPack Written by Caelan Sayler [caelantsayler]at[gmail]dot[com]                          //
+//  URL: https://github.com/caesay/MPack													 //
+//  Licensed: Attribution 4.0 (CC BY 4.0) http://creativecommons.org/licenses/by/4.0/        //
+//                                                                                           //
+//  DotMPack Written by Alexander Higgins	                                                 //
+//  URL: https://github.com/caesay/MPack													 //
+//  Licensed: Attribution 4.0 (CC BY 4.0) http://creativecommons.org/licenses/by/4.0/        //
+//                                                                                           //
+///////////////////////////////////////////////////////////////////////////////////////////////
+#region
+
+extensions: .aspx .ascx
+<%-- 
+// LICENSE INFORMATION ////////////////////////////////////////////////////////////////////////
+//                                                                                           //
+//                                          DotMPack                                         //
+//                                                                                           //
+//  DotMPack is lightweight Grpc compatible implementation of the MessagePack binary		 //
+//  serialization format adapted from MPack.												 //
+//  It is a direct mapping to JSON, and the official specification can be found here:        //
+//  https://github.com/msgpack/msgpack/blob/master/spec.md                                   //
+//                                                                                           //
+//  This DotMPack implementation is inspired by the work of ymofen (ymofen@diocp.org):       //
+//  https://github.com/ymofen/SimpleMsgPack.Net                                              //
+//                                                                                           //
+//  This implementation has been completely reworked from the ground up including many       //
+//  bux fixes and an API that remains lightweight compared to the official one,              //
+//  while remaining robust and easy to use.                                                  //
+//                                                                                           //                 
+//  MPack Written by Caelan Sayler [caelantsayler]at[gmail]dot[com]                          //
+//  URL: https://github.com/caesay/MPack													 //
+//  Licensed: Attribution 4.0 (CC BY 4.0) http://creativecommons.org/licenses/by/4.0/        //
+//                                                                                           //
+//  DotMPack Written by Alexander Higgins	                                                 //
+//  URL: https://github.com/caesay/MPack													 //
+//  Licensed: Attribution 4.0 (CC BY 4.0) http://creativecommons.org/licenses/by/4.0/        //
+//                                                                                           //
+///////////////////////////////////////////////////////////////////////////////////////////////
+--%>
+extensions: .vb
+// LICENSE INFORMATION ////////////////////////////////////////////////////////////////////////
+//                                                                                           //
+//                                          DotMPack                                         //
+//                                                                                           //
+//  DotMPack is lightweight Grpc compatible implementation of the MessagePack binary		 //
+//  serialization format adapted from MPack.												 //
+//  It is a direct mapping to JSON, and the official specification can be found here:        //
+//  https://github.com/msgpack/msgpack/blob/master/spec.md                                   //
+//                                                                                           //
+//  This DotMPack implementation is inspired by the work of ymofen (ymofen@diocp.org):       //
+//  https://github.com/ymofen/SimpleMsgPack.Net                                              //
+//                                                                                           //
+//  This implementation has been completely reworked from the ground up including many       //
+//  bux fixes and an API that remains lightweight compared to the official one,              //
+//  while remaining robust and easy to use.                                                  //
+//                                                                                           //                 
+//  MPack Written by Caelan Sayler [caelantsayler]at[gmail]dot[com]                          //
+//  URL: https://github.com/caesay/MPack													 //
+//  Licensed: Attribution 4.0 (CC BY 4.0) http://creativecommons.org/licenses/by/4.0/        //
+//                                                                                           //
+//  DotMPack Written by Alexander Higgins	                                                 //
+//  URL: https://github.com/caesay/MPack													 //
+//  Licensed: Attribution 4.0 (CC BY 4.0) http://creativecommons.org/licenses/by/4.0/        //
+//                                                                                           //
+///////////////////////////////////////////////////////////////////////////////////////////////
+extensions:  .xml .config .xsd
+<!--
+// LICENSE INFORMATION ////////////////////////////////////////////////////////////////////////
+//                                                                                           //
+//                                          DotMPack                                         //
+//                                                                                           //
+//  DotMPack is lightweight Grpc compatible implementation of the MessagePack binary		 //
+//  serialization format adapted from MPack.												 //
+//  It is a direct mapping to JSON, and the official specification can be found here:        //
+//  https://github.com/msgpack/msgpack/blob/master/spec.md                                   //
+//                                                                                           //
+//  This DotMPack implementation is inspired by the work of ymofen (ymofen@diocp.org):       //
+//  https://github.com/ymofen/SimpleMsgPack.Net                                              //
+//                                                                                           //
+//  This implementation has been completely reworked from the ground up including many       //
+//  bux fixes and an API that remains lightweight compared to the official one,              //
+//  while remaining robust and easy to use.                                                  //
+//                                                                                           //                 
+//  MPack Written by Caelan Sayler [caelantsayler]at[gmail]dot[com]                          //
+//  URL: https://github.com/caesay/MPack													 //
+//  Licensed: Attribution 4.0 (CC BY 4.0) http://creativecommons.org/licenses/by/4.0/        //
+//                                                                                           //
+//  DotMPack Written by Alexander Higgins	                                                 //
+//  URL: https://github.com/caesay/MPack													 //
+//  Licensed: Attribution 4.0 (CC BY 4.0) http://creativecommons.org/licenses/by/4.0/        //
+//                                                                                           //
+///////////////////////////////////////////////////////////////////////////////////////////////
+-->

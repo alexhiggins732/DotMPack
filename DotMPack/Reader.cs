@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CS
+namespace HigginsSoft.DotMPack
 {
     internal class Reader
     {
@@ -18,13 +17,13 @@ namespace CS
         {
             //positive fixint	0xxxxxxx	0x00 - 0x7f
             _lookup.AddRange(0, 0x7F,
-                (b, s) => new MPack(b, MPackType.SInt),
-                (b, s, c) => Task.FromResult(new MPack(b, MPackType.SInt)));
+                (b, s) => new DotMPack(b, DotMPackType.SInt),
+                (b, s, c) => Task.FromResult(new DotMPack(b, DotMPackType.SInt)));
 
             //positive fixint	0xxxxxxx	0x00 - 0x7f
             _lookup.AddRange(0x80, 0x8F, (b, s) =>
             {
-                MPackMap map = new MPackMap();
+                DotMPackMap map = new DotMPackMap();
                 int len = b - 0x80;
                 for (int i = 0; i < len; i++)
                 {
@@ -33,7 +32,7 @@ namespace CS
                 return map;
             }, async (b, s, c) =>
             {
-                MPackMap map = new MPackMap();
+                DotMPackMap map = new DotMPackMap();
                 int len = b - 0x80;
                 for (int i = 0; i < len; i++)
                 {
@@ -45,7 +44,7 @@ namespace CS
             //fixarray	1001xxxx	0x90 - 0x9f
             _lookup.AddRange(0x90, 0x9f, (b, s) =>
             {
-                MPackArray array = new MPackArray();
+                DotMPackArray array = new DotMPackArray();
                 int len = b - 0x90;
                 for (int i = 0; i < len; i++)
                 {
@@ -54,7 +53,7 @@ namespace CS
                 return array;
             }, async (b, s, c) =>
             {
-                MPackArray array = new MPackArray();
+                DotMPackArray array = new DotMPackArray();
                 int len = b - 0x90;
                 for (int i = 0; i < len; i++)
                 {
@@ -67,66 +66,66 @@ namespace CS
             _lookup.AddRange(0xA0, 0xBF, (b, s) =>
             {
                 int len = b - 0xA0;
-                return new MPack(_encoding.GetString(s.Read(len)), MPackType.String);
+                return new DotMPack(_encoding.GetString(s.Read(len)), DotMPackType.String);
             }, async (b, s, c) =>
             {
                 int len = b - 0xA0;
-                return new MPack(_encoding.GetString(await s.ReadAsync(len, c)), MPackType.String);
+                return new DotMPack(_encoding.GetString(await s.ReadAsync(len, c)), DotMPackType.String);
             });
 
             // negative fixnum stores 5-bit negative integer 111xxxxx
             _lookup.AddRange(0xE0, 0xFF,
-                (b, s) => new MPack((sbyte)b, MPackType.SInt),
-                (b, s, c) => Task.FromResult(new MPack((sbyte)b, MPackType.SInt)));
+                (b, s) => new DotMPack((sbyte)b, DotMPackType.SInt),
+                (b, s, c) => Task.FromResult(new DotMPack((sbyte)b, DotMPackType.SInt)));
 
             // null
             _lookup.Add(0xC0,
-                (b, s) => MPack.Null(),
-                (b, s, c) => Task.FromResult(MPack.Null()));
+                (b, s) => DotMPack.Null(),
+                (b, s, c) => Task.FromResult(DotMPack.Null()));
 
             // note, no 0xC1, it's not used.
 
             // bool: false
             _lookup.Add(0xC2,
-                (b, s) => new MPack(false, MPackType.Bool),
-                (b, s, c) => Task.FromResult(new MPack(false, MPackType.Bool)));
+                (b, s) => new DotMPack(false, DotMPackType.Bool),
+                (b, s, c) => Task.FromResult(new DotMPack(false, DotMPackType.Bool)));
 
             // bool: true
             _lookup.Add(0xC3,
-                (b, s) => new MPack(true, MPackType.Bool),
-                (b, s, c) => Task.FromResult(new MPack(true, MPackType.Bool)));
+                (b, s) => new DotMPack(true, DotMPackType.Bool),
+                (b, s, c) => Task.FromResult(new DotMPack(true, DotMPackType.Bool)));
 
             // binary array, max 255
             _lookup.Add(0xC4, (b, s) =>
             {
                 byte len = (byte)s.ReadByte();
-                return new MPack(s.Read(len), MPackType.Binary);
+                return new DotMPack(s.Read(len), DotMPackType.Binary);
             }, async (b, s, c) =>
             {
                 byte len = await s.ReadByteAsync(c);
-                return new MPack(await s.ReadAsync(len, c), MPackType.Binary);
+                return new DotMPack(await s.ReadAsync(len, c), DotMPackType.Binary);
             });
 
             // binary array, max 65535
             _lookup.Add(0xC5, (b, s) =>
             {
                 int len = _convert.ToUInt16(s.Read(2), 0);
-                return new MPack(s.Read(len), MPackType.Binary);
+                return new DotMPack(s.Read(len), DotMPackType.Binary);
             }, async (b, s, c) =>
             {
                 int len = _convert.ToUInt16((await s.ReadAsync(2, c)), 0);
-                return new MPack(await s.ReadAsync(len, c), MPackType.Binary);
+                return new DotMPack(await s.ReadAsync(len, c), DotMPackType.Binary);
             });
 
             // binary max: 2^32-1                
             _lookup.Add(0xC6, (b, s) =>
             {
                 uint len = _convert.ToUInt32(s.Read(4), 0);
-                return new MPack(s.Read(len), MPackType.Binary);
+                return new DotMPack(s.Read(len), DotMPackType.Binary);
             }, async (b, s, c) =>
             {
                 uint len = _convert.ToUInt32((await s.ReadAsync(4, c)), 0);
-                return new MPack(await s.ReadAsync(len, c), MPackType.Binary);
+                return new DotMPack(await s.ReadAsync(len, c), DotMPackType.Binary);
             });
 
             // note 0xC7, 0xC8, 0xC9, not used.
@@ -135,69 +134,69 @@ namespace CS
             _lookup.Add(0xCA, (b, s) =>
             {
                 var raw = s.Read(4);
-                return new MPack(_convert.ToSingle(raw, 0), MPackType.Single);
+                return new DotMPack(_convert.ToSingle(raw, 0), DotMPackType.Single);
             }, async (b, s, c) =>
             {
                 var raw = (await s.ReadAsync(4, c));
-                return new MPack(_convert.ToSingle(raw, 0), MPackType.Single);
+                return new DotMPack(_convert.ToSingle(raw, 0), DotMPackType.Single);
             });
 
             // float 64 stores a floating point number in IEEE 754 double precision floating point number        
             _lookup.Add(0xCB, (b, s) =>
             {
                 var raw = s.Read(8);
-                return new MPack(_convert.ToDouble(raw, 0), MPackType.Double);
+                return new DotMPack(_convert.ToDouble(raw, 0), DotMPackType.Double);
             }, async (b, s, c) =>
             {
                 var raw = (await s.ReadAsync(8, c));
-                return new MPack(_convert.ToDouble(raw, 0), MPackType.Double);
+                return new DotMPack(_convert.ToDouble(raw, 0), DotMPackType.Double);
             });
 
             // uint8   0xcc   xxxxxxxx
             _lookup.Add(0xCC,
-                (b, s) => new MPack((byte)s.ReadByte(), MPackType.UInt),
-                async (b, s, c) => new MPack((byte)await s.ReadByteAsync(c), MPackType.UInt));
+                (b, s) => new DotMPack((byte)s.ReadByte(), DotMPackType.UInt),
+                async (b, s, c) => new DotMPack((byte)await s.ReadByteAsync(c), DotMPackType.UInt));
 
             // uint16   0xcd xxxxxxxx xxxxxxxx   
             _lookup.Add(0xCD, (b, s) =>
             {
                 var v = _convert.ToUInt16(s.Read(2), 0);
-                return new MPack(v, MPackType.UInt);
+                return new DotMPack(v, DotMPackType.UInt);
             }, async (b, s, c) =>
             {
                 var v = _convert.ToUInt16((await s.ReadAsync(2, c))
                     , 0);
-                return new MPack(v, MPackType.UInt);
+                return new DotMPack(v, DotMPackType.UInt);
             });
 
             // uint32   0xce xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx  
             _lookup.Add(0xCE, (b, s) =>
             {
                 var v = _convert.ToUInt32(s.Read(4), 0);
-                return new MPack(v, MPackType.UInt);
+                return new DotMPack(v, DotMPackType.UInt);
             }, async (b, s, c) =>
             {
                 var v = _convert.ToUInt32((await s.ReadAsync(4, c))
                     , 0);
-                return new MPack(v, MPackType.UInt);
+                return new DotMPack(v, DotMPackType.UInt);
             });
 
             // uint64   0xcF   xxxxxxxx (x4)
             _lookup.Add(0xCF, (b, s) =>
             {
                 var v = _convert.ToUInt64(s.Read(8), 0);
-                return new MPack(v, MPackType.UInt);
+                return new DotMPack(v, DotMPackType.UInt);
             }, async (b, s, c) =>
             {
                 var v = _convert.ToUInt64((await s.ReadAsync(8, c)), 0);
-                return new MPack(v, MPackType.UInt);
+                return new DotMPack(v, DotMPackType.UInt);
             });
 
             // array (uint16 length)
             _lookup.Add(0xDC, (b, s) =>
             {
                 ushort len = _convert.ToUInt16(s.Read(2), 0);
-                MPackArray array = new MPackArray();
+                DotMPackArray array = new DotMPackArray();
                 for (ushort i = 0; i < len; i++)
                 {
                     array.Add(ParseFromStream(s));
@@ -206,7 +205,7 @@ namespace CS
             }, async (b, s, c) =>
             {
                 ushort len = _convert.ToUInt16((await s.ReadAsync(2, c)), 0);
-                MPackArray array = new MPackArray();
+                DotMPackArray array = new DotMPackArray();
                 for (ushort i = 0; i < len; i++)
                 {
                     array.Add(await ParseFromStreamAsync(s, c));
@@ -218,7 +217,7 @@ namespace CS
             _lookup.Add(0xDD, (b, s) =>
             {
                 uint len = _convert.ToUInt32(s.Read(4), 0);
-                MPackArray array = new MPackArray();
+                DotMPackArray array = new DotMPackArray();
                 for (uint i = 0; i < len; i++)
                 {
                     array.Add(ParseFromStream(s));
@@ -227,7 +226,7 @@ namespace CS
             }, async (b, s, c) =>
             {
                 uint len = _convert.ToUInt32(await s.ReadAsync(4, c), 0);
-                MPackArray array = new MPackArray();
+                DotMPackArray array = new DotMPackArray();
                 for (uint i = 0; i < len; i++)
                 {
                     array.Add(await ParseFromStreamAsync(s, c));
@@ -239,7 +238,7 @@ namespace CS
             _lookup.Add(0xDE, (b, s) =>
             {
                 ushort len = _convert.ToUInt16(s.Read(2), 0);
-                MPackMap map = new MPackMap();
+                DotMPackMap map = new DotMPackMap();
                 for (ushort i = 0; i < len; i++)
                 {
                     var flag = (byte)s.ReadByte();
@@ -251,7 +250,7 @@ namespace CS
             }, async (b, s, c) =>
             {
                 ushort len = _convert.ToUInt16(await s.ReadAsync(2, c), 0);
-                MPackMap map = new MPackMap();
+                DotMPackMap map = new DotMPackMap();
                 for (ushort i = 0; i < len; i++)
                 {
                     var flag = await s.ReadByteAsync(c);
@@ -266,7 +265,7 @@ namespace CS
             _lookup.Add(0xDF, (b, s) =>
             {
                 uint len = _convert.ToUInt32(s.Read(4), 0);
-                MPackMap map = new MPackMap();
+                DotMPackMap map = new DotMPackMap();
                 for (uint i = 0; i < len; i++)
                 {
                     var flag = (byte)s.ReadByte();
@@ -278,7 +277,7 @@ namespace CS
             }, async (b, s, c) =>
             {
                 uint len = _convert.ToUInt32((await s.ReadAsync(4, c)), 0);
-                MPackMap map = new MPackMap();
+                DotMPackMap map = new DotMPackMap();
                 for (uint i = 0; i < len; i++)
                 {
                     var flag = await s.ReadByteAsync(c);
@@ -291,57 +290,57 @@ namespace CS
 
             //  str family
             _lookup.AddRange(0xD9, 0xDB,
-                (b, s) => new MPack(ReadString(b, s), MPackType.String), 
-                async (b, s, c) => new MPack((await ReadStringAsync(b, s, c)), MPackType.String));
+                (b, s) => new DotMPack(ReadString(b, s), DotMPackType.String), 
+                async (b, s, c) => new DotMPack((await ReadStringAsync(b, s, c)), DotMPackType.String));
 
             // int8   0xD0   xxxxxxxx
             _lookup.Add(0xD0,
-                (b, s) => new MPack((sbyte)s.ReadByte(), MPackType.SInt),
-                async (b, s, c) => new MPack((sbyte)await s.ReadByteAsync(c), MPackType.SInt));
+                (b, s) => new DotMPack((sbyte)s.ReadByte(), DotMPackType.SInt),
+                async (b, s, c) => new DotMPack((sbyte)await s.ReadByteAsync(c), DotMPackType.SInt));
 
             // int16   0xd1 xxxxxxxx xxxxxxxx   
             _lookup.Add(0xD1, (b, s) =>
             {
                 var v = _convert.ToInt16(s.Read(2), 0);
-                return new MPack(v, MPackType.SInt);
+                return new DotMPack(v, DotMPackType.SInt);
             }, async (b, s, c) =>
             {
                 var v = _convert.ToInt16((await s.ReadAsync(2, c))
                     , 0);
-                return new MPack(v, MPackType.SInt);
+                return new DotMPack(v, DotMPackType.SInt);
             });
 
             // int32    0xD2 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx  
             _lookup.Add(0xD2, (b, s) =>
             {
                 var v = _convert.ToInt32(s.Read(4), 0);
-                return new MPack(v, MPackType.SInt);
+                return new DotMPack(v, DotMPackType.SInt);
             }, async (b, s, c) =>
             {
                 var v = _convert.ToInt32((await s.ReadAsync(4, c))
                     , 0);
-                return new MPack(v, MPackType.SInt);
+                return new DotMPack(v, DotMPackType.SInt);
             });
 
             // int64      0xD3 xxxxxxxx (x8)
             _lookup.Add(0xD3, (b, s) =>
             {
                 var v = _convert.ToInt64(s.Read(8), 0);
-                return new MPack(v, MPackType.SInt);
+                return new DotMPack(v, DotMPackType.SInt);
             }, async (b, s, c) =>
             {
                 var v = _convert.ToInt64((await s.ReadAsync(8, c))
                     , 0);
-                return new MPack(v, MPackType.SInt);
+                return new DotMPack(v, DotMPackType.SInt);
             });
         }
 
-        public static MPack ParseFromStream(Stream stream)
+        public static DotMPack ParseFromStream(Stream stream)
         {
             byte selector = (byte)stream.ReadByte();
             return _lookup[selector].Read(selector, stream);
         }
-        public static async Task<MPack> ParseFromStreamAsync(Stream stream, CancellationToken token)
+        public static async Task<DotMPack> ParseFromStreamAsync(Stream stream, CancellationToken token)
         {
             byte selector = await stream.ReadByteAsync(token);
             return await _lookup[selector].ReadAsync(selector, stream, token);
@@ -432,20 +431,20 @@ namespace CS
     }
     internal class FamilyReader
     {
-        private readonly Func<byte, Stream, MPack> _sync;
-        private readonly Func<byte, Stream, CancellationToken, Task<MPack>> _async;
+        private readonly Func<byte, Stream, DotMPack> _sync;
+        private readonly Func<byte, Stream, CancellationToken, Task<DotMPack>> _async;
 
-        public FamilyReader(Func<byte, Stream, MPack> sync, Func<byte, Stream, CancellationToken, Task<MPack>> async)
+        public FamilyReader(Func<byte, Stream, DotMPack> sync, Func<byte, Stream, CancellationToken, Task<DotMPack>> async)
         {
             _sync = sync;
             _async = async;
         }
 
-        public MPack Read(byte selector, Stream stream)
+        public DotMPack Read(byte selector, Stream stream)
         {
             return _sync(selector, stream);
         }
-        public Task<MPack> ReadAsync(byte selector, Stream stream, CancellationToken token)
+        public Task<DotMPack> ReadAsync(byte selector, Stream stream, CancellationToken token)
         {
             return _async(selector, stream, token);
         }
@@ -461,13 +460,13 @@ namespace CS
                 this.Add(b, reader);
             }
         }
-        public void AddRange(byte rangeStart, byte rangeEnd, Func<byte, Stream, MPack> sync,
-            Func<byte, Stream, CancellationToken, Task<MPack>> async)
+        public void AddRange(byte rangeStart, byte rangeEnd, Func<byte, Stream, DotMPack> sync,
+            Func<byte, Stream, CancellationToken, Task<DotMPack>> async)
         {
             AddRange(rangeStart, rangeEnd, new FamilyReader(sync, async));
         }
-        public void Add(byte flag, Func<byte, Stream, MPack> sync,
-            Func<byte, Stream, CancellationToken, Task<MPack>> async)
+        public void Add(byte flag, Func<byte, Stream, DotMPack> sync,
+            Func<byte, Stream, CancellationToken, Task<DotMPack>> async)
         {
             Add(flag, new FamilyReader(sync, async));
         }

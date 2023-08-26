@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		   <RootNamespace>HigginsSoft.DotDotMPack</RootNamespace>
+		<AssemblyName>HigginsSoft.DotDotMPack</AssemblyName>
+		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+	</PropertyGroup>
+	<ItemGroup>
+	  <Folder Include="Properties\" />
+	</ItemGroup>
+  <ItemGroup>
+   
+    <PackageReference Include="protobuf-net.Grpc.AspNetCore" />
+    <PackageReference Include="protobuf-net.Grpc.AspNetCore.Reflection" />
+    <PackageReference Include="protobuf-net.Grpc" />
+    <PackageReference Include="System.ServiceModel.Primitives" />
+  </ItemGroup>
+
+</Project>

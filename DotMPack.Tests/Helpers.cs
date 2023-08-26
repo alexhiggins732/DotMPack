@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CS.MPackTests
+namespace HigginsSoft.DotMPack.Tests
 {
     public class Helpers
     {
@@ -20,13 +20,14 @@ namespace CS.MPackTests
             }
             return result.ToString();
         }
+
         public static byte[] GetBytes(int size)
         {
             byte[] data = new byte[1];
-            RNGCryptoServiceProvider crypto = new RNGCryptoServiceProvider();
-            crypto.GetNonZeroBytes(data);
-            data = new byte[size];
-            crypto.GetNonZeroBytes(data);
+            using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(data);
+            }
             return data;
         }
     }

@@ -1,49 +1,51 @@
-﻿using System;
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CS
+namespace HigginsSoft.DotMPack
 {
     internal class Writer
     {
         private static Encoding _encoding = Encoding.UTF8;
         private static IBitConverter _convert = EndianBitConverter.Big;
 
-        public static void EncodeToStream(Stream ms, MPack m)
+        public static void EncodeToStream(Stream ms, DotMPack m)
         {
             switch (m.ValueType)
             {
-                case MPackType.Null:
+                case DotMPackType.Null:
                     WriteNull(ms);
                     break;
-                case MPackType.String:
+                case DotMPackType.String:
                     WriteString(ms, Convert.ToString(m.Value));
                     break;
-                case MPackType.SInt:
+                case DotMPackType.SInt:
                     WriteInteger(ms, Convert.ToInt64(m.Value));
                     break;
-                case MPackType.UInt:
+                case DotMPackType.Date:
+                case DotMPackType.UInt:
                     WriteInteger(ms, Convert.ToUInt64(m.Value));
                     break;
-                case MPackType.Bool:
+                case DotMPackType.Bool:
                     WriteBoolean(ms, Convert.ToBoolean(m.Value));
                     break;
-                case MPackType.Single:
+                case DotMPackType.Single:
                     WriteSingle(ms, Convert.ToSingle(m.Value));
                     break;
-                case MPackType.Double:
+                case DotMPackType.Double:
                     WriteDouble(ms, Convert.ToDouble(m.Value));
                     break;
-                case MPackType.Binary:
+                case DotMPackType.Binary:
                     WriteBinary(ms, (byte[])m.Value);
                     break;
-                case MPackType.Map:
+                case DotMPackType.Map:
                     WriteMap(ms, m);
                     break;
-                case MPackType.Array:
+                case DotMPackType.Array:
                     WirteArray(ms, m);
                     break;
                 default:
@@ -52,9 +54,9 @@ namespace CS
             }
         }
 
-        private static void WriteMap(Stream stream, MPack mpack)
+        private static void WriteMap(Stream stream, DotMPack DotMPack)
         {
-            MPackMap map = mpack as MPackMap;
+            DotMPackMap map = DotMPack as DotMPackMap;
             if (map == null)
                 throw new InvalidOperationException("A call to WriteMap can not occur unless type is of MsgPackMap");
 
@@ -82,15 +84,15 @@ namespace CS
                 stream.Write(lenBytes, 0, lenBytes.Length);
             }
 
-            foreach (KeyValuePair<MPack, MPack> child in map)
+            foreach (KeyValuePair<DotMPack, DotMPack> child in map)
             {
                 EncodeToStream(stream, child.Key);
                 EncodeToStream(stream, child.Value);
             }
         }
-        private static void WirteArray(Stream ms, MPack mpack)
+        private static void WirteArray(Stream ms, DotMPack DotMPack)
         {
-            MPackArray list = mpack as MPackArray;
+            DotMPackArray list = DotMPack as DotMPackArray;
             if (list == null)
                 throw new InvalidOperationException("A call to WirteArray can not occur unless type is of MsgPackArray");
 

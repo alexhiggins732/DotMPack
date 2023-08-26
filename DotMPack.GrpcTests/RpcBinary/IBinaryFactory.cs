@@ -1,0 +1,2 @@
+namespace HigginsSoft.DotMPack.GrpcTests;
+

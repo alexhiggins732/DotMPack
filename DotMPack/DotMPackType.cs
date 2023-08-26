@@ -1,12 +1,12 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CS
+namespace HigginsSoft.DotMPack
 {
-    public enum MPackType
+    public enum DotMPackType
     {
         Null = 0,
         Bool = 1,
@@ -19,5 +19,6 @@ namespace CS
         Array = 8,
         Map = 9,
         Extension = 10,
+        Date = 11,
     }
 }
